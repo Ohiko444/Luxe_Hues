@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Мой сайт</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #222; /* Цвет фона неба */
+            color: #fff;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            
+            padding-bottom: 30px;
+        }
+
+        /* Шапка */
+        .header {
+          justify-content: center; /* Выравнивание по горизонтали */
+          align-items: center; /* Выравнивание по вертикали */
+          position: fixed;
+          width: 100%;
+          background-color: rgba(34, 34, 34, 0.8);
+          z-index: 3;
+          transition: background-color 0.3s ease;
+        }
+
+        /* Колонки */
+        .columnone {
+          float: left;
+          width: 34%;
+          z-index: 1;
+        }
+      
+        .columntwo {
+          float: left;
+          width: 64%;
+          padding-left: 20px;
+          z-index: 1;
+        }
+        .row {
+          padding-top: 100px;
+          z-index: 1000;
+          z-index: 2;
+        }
+        /* Очистим обтекание после колонок */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+
+        }
+        .card {
+          background-color: white;
+          padding: 20px;
+          margin-top: 20px;
+          z-index: 1;
+        }
+        
+        .square {
+          position: absolute;
+          width: 400px;
+          height: 500px;
+          border-radius: 20px;
+          z-index: 1;
+        }
+
+        .square::before,
+        .square::after {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #DEA9FF, rgb(0, 0, 0));
+            z-index: -1;
+        }
+
+        .square::before {
+            z-index: -2;
+            filter: blur(20px);
+        }
+
+        .square img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            border-radius: 20px;
+
+
+            transition: opacity 0.3s ease; /* Анимация появления текста */
+        }
+        
+        .square .text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #222; /* Цвет фона текста */
+            padding: 20px;
+            box-sizing: border-box; /* Учитываем padding в размерах */
+            border-radius: 20px; /* Закругление краев */
+            opacity: 0; /* Начально скрываем текст */
+            transition: opacity 0.3s ease; /* Анимация появления текста */
+       
+            padding-left: 10px; /* Расстояние между линией и текстом */
+        }
+        .square:hover .text {
+            opacity: 1; /* Появление текста при наведении */
+        }
+        .square .text p {
+            margin: 0; /* Убираем внутренние отступы у абзацев */
+        }
+
+        .text-block {
+            position: absolute;
+            top: 0;
+            margin-top: 145px;
+            left: calc(40%); /* Располагаем блок справа от .square */
+            width: 1000px; /* Ширина блока */
+            height: 500px; /* Высота блока */
+            background-color: #222; /* Цвет фона текста */
+            border-radius: 20px; /* Закругление краев */
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.8);
+            border: 5px #000000 solid;
+            z-index: 1;
+        }
+
+        
+        .tabs {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+            
+        }
+        .tabs a {
+          display: inline-block;
+          padding: 10px 20px;
+          margin: 0 30px;
+          color: #fff;
+          text-decoration: none;
+          font-size: 24px;
+            
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+        }
+
+        .content {
+          padding: 100px 20px 150px;
+          text-align: center;
+          position: relative;
+          z-index: 1;
+          box-sizing: border-box; /* Учитываем padding в размерах */
+          min-height: calc(100vh - 250px);
+          }
+        canvas {
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 0;
+        }
+        .footer {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background-color: #222;
+          color: #fff;
+          padding: 5px 0;
+          text-align: center;
+          z-index: 1;  /* Устанавливаем z-index, чтобы подвал был над другими элементами */
+        }
+
+        .container {
+            width: 90%; /* Ширина контейнера */
+            margin: 0 auto; /* Центрируем контейнер по горизонтали */
+        }
+
+    
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="tabs">
+            <a href="types_of_makeup.html">Виды макияжей</a>
+            <a href="eye_makeup_techniques.html">Макияж глаз</a>
+            <a href="index.html" class="logo">
+                <img src="image/icon.png">
+            </a>
+            <a href="products.html">Продукты</a>
+            <a href="products.html">Виртуальный макияж</a>
+        </div>
+    </div>
+
+    <div class = "row">
+
+      <div class="columnone">
+        <div class="card">
+          <div class="square">
+            <img src="image/maik.jpg" alt="Image">
+            <div class="text">Текст</div>
+          </div>
+        </div> 
+      </div>
+
+      <div class="columntwo">
+        <div class="card">
+          <div class="text-block">
+            <p>Текст блока</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  
+
+    <footer class="footer">
+      <div class="container">
+          <p>&copy; 2024 Ваше название сайта. Все права защищены.</p>
+      </div>
+    </footer>
+  
+
+    
+
+    <!-- Добавленный canvas для анимации -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Добавленный скрипт -->
+    <script>
+        "use strict";
+
+        var canvas = document.getElementById('canvas'),
+          ctx = canvas.getContext('2d'),
+          w = canvas.width = window.innerWidth,
+          h = canvas.height = window.innerHeight,
+            
+          hue = 277,
+          stars = [],
+          count = 0,
+          maxStars = 500;
+
+        var canvas2 = document.createElement('canvas'),
+            ctx2 = canvas2.getContext('2d');
+            canvas2.width = 100;
+            canvas2.height = 100;
+        var half = canvas2.width/2,
+            gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
+            gradient2.addColorStop(0.025, '#fff');
+            gradient2.addColorStop(0.1, 'hsl(' + hue + ', 61%, 33%)');
+            gradient2.addColorStop(0.25, 'hsl(' + hue + ', 64%, 6%)');
+            gradient2.addColorStop(1, 'transparent');
+
+            ctx2.fillStyle = gradient2;
+            ctx2.beginPath();
+            ctx2.arc(half, half, half, 0, Math.PI * 2);
+            ctx2.fill();
+
+        // End cache
+
+        function random(min, max) {
+          if (arguments.length < 2) {
+            max = min;
+            min = 0;
+          }
+          
+          if (min > max) {
+            var hold = max;
+            max = min;
+            min = hold;
+          }
+
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function maxOrbit(x,y) {
+          var max = Math.max(x,y),
+              diameter = Math.round(Math.sqrt(max*max + max*max));
+          return diameter/2;
+        }
+
+        var Star = function() {
+
+          this.orbitRadius = random(maxOrbit(w,h));
+          this.radius = random(60, this.orbitRadius) / 12;
+          this.orbitX = w / 2;
+          this.orbitY = h / 2;
+          this.timePassed = random(0, maxStars);
+          this.speed = random(this.orbitRadius) / 1900000; // Уменьшенная скорость вращения
+          this.alpha = random(2, 10) / 10;
+
+          count++;
+          stars[count] = this;
+        }
+
+        Star.prototype.draw = function() {
+          var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX,
+              y = Math.cos(this.timePassed) * this.orbitRadius + this.orbitY,
+              twinkle = random(10);
+
+          if (twinkle === 1 && this.alpha > 0) {
+            this.alpha -= 0.05;
+          } else if (twinkle === 2 && this.alpha < 1) {
+            this.alpha += 0.05;
+          }
+
+          ctx.globalAlpha = this.alpha;
+            ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
+          this.timePassed += this.speed;
+        }
+
+        for (var i = 0; i < maxStars; i++) {
+          new Star();
+        }
+
+        function animation() {
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.globalAlpha = 0.8;
+            ctx.fillStyle = '#222'; // Цвет фона неба
+            ctx.fillRect(0, 0, w, h)
+          
+          ctx.globalCompositeOperation = 'lighter';
+          for (var i = 1, l = stars.length; i < l; i++) {
+            stars[i].draw();
+          };  
+          
+          window.requestAnimationFrame(animation);
+        }
+
+        animation();
+
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.scrollY;
+            var header = document.querySelector('.header');
+
+            if (scrollPosition > 100) { // Или любое другое значение, когда вы хотите начать изменение
+                header.style.backgroundColor = 'rgba(34, 34, 34, 0.93)'; // Новый цвет фона с прозрачностью
+            } else {
+                header.style.backgroundColor = 'rgba(34, 34, 34, 0.8)'; // Исходный цвет фона
+            }
+        });
+
+        const tabs = document.querySelectorAll('.tabs a');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('mouseenter', () => {
+                tab.style.color = '#DEA9FF'; // Пурпурный цвет
+            });
+
+            tab.addEventListener('mouseleave', () => {
+                tab.style.color = '#fff'; // Белый цвет
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <!-- Метаданные документа -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Виртуальный макияж</title>
+    <!-- Подключение внешнего стилевого файла -->
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="lk">
+      <a href="/entry.php"><img src="/image/LK.png"></a>
+    </div>
+
+    <div class="header">
+      <div class="tabs">
+        <a href="/types_of_makeup.php">Виды макияжей</a>
+        <a href="/eye_makeup_techniques.php">Макияж глаз</a>
+        <a href="/index.html" class="logo">
+            <img src="/image/icon.png">
+        </a>
+        <a href="/products.php">Продукты</a>
+        <a href="virtualmake.html">Виртуальный макияж</a>
+      </div>
+    </div>
+
+
+    <main>
+      <!-- Начальный экран -->
+      <div class="start-screen">
+        <!-- Спиннер загрузки -->
+        <div class="start-screen__spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <!-- Форма выбора источника -->
+        <div class="start-screen__inner hidden">
+          <div class="start-screen__title">Пожалуйста, загрузите фото 3*4:</div>
+          
+          <div class="start-screen__photo">
+            <input type="file" id="image" accept="image/*" />
+            <label for="image">Загрузить фото</label>
+          </div>
+          <div class="start-screen__image"></div>
+        </div>
+      </div>
+      
+      
+      <div class="hand-gestures hidden"></div>
+      <div class="heart-rate hidden"></div>
+      <div class="test-ruler hidden"></div>
+      <div id="popups" class="popups"></div>
+      <div class="overlay"></div>
+      <div id="webar"></div>
+      
+      <!-- Кнопка сброса -->
+      <input
+      type="image"
+      id="reset-button"
+      src="assets/icons/controls/icon-reset.svg"
+      alt="reset button"
+      disabled
+      />
+      
+      
+      <!-- Сообщение о импорте -->
+      <div class="import-message hidden"></div>
+
+      <!-- Подвал страницы -->
+      <div class="footer">
+        <!-- Элементы управления эффектами -->
+        <div class="effects">
+          <div class="effect-control"></div>
+          <div class="effects-list"></div>
+        </div>
+        <!-- Элементы управления эффектами -->
+        <div class="categories-button__left hidden">
+          <div class="categories-button__left-icon">
+            <img src="assets/icons/controls/icon-arrow.svg" alt="left" />
+          </div>
+        </div>
+        <div class="categories-button__right hidden">
+          <div class="categories-button__right-icon">
+            <img src="assets/icons/controls/icon-arrow.svg" alt="right" />
+          </div>
+        </div>
+        <!-- Категории и технологии -->
+        <div class="categories"></div>
+        <div style="display: flex;">
+          <div class="technologies" style="width: 52%;"></div>
+          <button id="savePhoto" class="technologies" style="background-color: transparent; border: none; color: white; font-size: 13px; text-align: center; font-family: 'Open Sans', sans-serif; line-height: 38px; padding: 10px 5px; margin-left: 300px;">СКАЧАТЬ ФОТО</button>
+        </div>
+      </div>
+    </main>
+    
+  </body>
+
+
+  <!-- Подключение скриптов -->
+  <script src="BanubaClientToken.js"></script>
+  <script type="module" src="main.js"></script>
+
+  <script>
+    // Функция для создания скриншота элемента
+    function takeScreenshot() {
+      // Получаем ссылку на элемент, который нужно сфотографировать
+      const webarElement = document.getElementById('webar');
+      // Получаем ссылку на canvas
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      
+      // Устанавливаем размер canvas таким же, как у элемента
+      canvas.width = webarElement.offsetWidth;
+      canvas.height = webarElement.offsetHeight;
+
+      // Рисуем содержимое элемента на canvas
+      context.drawImage(webarElement.querySelector('canvas'), 0, 0, canvas.width, canvas.height);
+
+      // Возвращаем изображение в формате data URL
+      return canvas.toDataURL();
+    }
+
+    // Функция для скачивания скриншота
+    function downloadScreenshot() {
+      // Создаем ссылку для скачивания
+      const link = document.createElement('a');
+      link.href = takeScreenshot(); // Используем функцию для создания скриншота
+      link.download = 'screenshot.png'; // Устанавливаем имя файла
+      // Добавляем ссылку на страницу и эмулируем клик для скачивания
+      document.body.appendChild(link);
+      link.click();
+
+      // Удаляем ссылку
+      document.body.removeChild(link);
+    }
+
+    // Получаем ссылку на кнопку "Сохранить фото"
+    const savePhotoButton = document.getElementById('savePhoto');
+    // Добавляем обработчик события на клик для кнопки
+    savePhotoButton.addEventListener('click', downloadScreenshot);
+  </script>
+</html>
